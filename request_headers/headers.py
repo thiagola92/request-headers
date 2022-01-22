@@ -2,7 +2,18 @@ import hashlib
 
 
 def clean_headers(headers):
-    # fields added by heroku
+    # No use to know
+    headers.pop("Host", None)
+
+    # Context relative
+    headers.pop("Referer", None)
+    headers.pop("Sec-Fetch-Site", None)
+    headers.pop("Sec-Fetch-Mode", None)
+    headers.pop("Sec-Fetch-User", None)
+    headers.pop("Sec-Fetch-Dest", None)
+
+    # Fields added by heroku/proxy
+    headers.pop("Remote-Addr", None)
     headers.pop("X-Request-Id", None)
     headers.pop("X-Forwarded-For", None)
     headers.pop("X-Forwarded-Proto", None)
