@@ -1,5 +1,6 @@
 import os
 import json
+from request_headers.mongo import insert_headers
 from quart import Quart, request
 
 app = Quart(__name__)
@@ -7,6 +8,7 @@ app = Quart(__name__)
 
 @app.route("/")
 async def main():
+    insert_headers(dict(request.headers))
     return json.dumps(dict(request.headers))
 
 
