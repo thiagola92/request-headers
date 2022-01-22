@@ -1,16 +1,8 @@
 import os
-import hashlib
 from pymongo import MongoClient
+from request_headers.headers import get_headers_digest
 
 uri = os.environ["MONGO_URI"]
-
-
-def get_headers_digest(headers):
-    headers_bytes = bytes(str(headers), encoding="utf8")
-    md5 = hashlib.md5()
-    md5.update(headers_bytes)
-
-    return md5.hexdigest()
 
 
 def find_headers_digest(headers_digest):
