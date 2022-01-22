@@ -2,17 +2,24 @@ import hashlib
 
 
 def clean_headers(headers):
+    """
+    I just want the basic fields that change from browser to browser.
+    Anything related to what you were doing or where you came from, 
+    doesn't matter to me.
+    """
+
     # No use to know
     headers.pop("Host", None)
 
-    # Context relative
+    # Intention context fields
+    headers.pop("Cache-Control", None)
     headers.pop("Referer", None)
     headers.pop("Sec-Fetch-Site", None)
     headers.pop("Sec-Fetch-Mode", None)
     headers.pop("Sec-Fetch-User", None)
     headers.pop("Sec-Fetch-Dest", None)
 
-    # Fields added by heroku/proxy
+    # Heroku/proxy fields
     headers.pop("Remote-Addr", None)
     headers.pop("X-Request-Id", None)
     headers.pop("X-Forwarded-For", None)
