@@ -1,5 +1,6 @@
 import os
 from pymongo import MongoClient
+from datetime import datetime
 from request_headers.headers import get_headers_digest
 
 uri = os.environ["MONGO_URI"]
@@ -20,4 +21,10 @@ def insert_headers(headers):
     if find_headers_digest(headers_digest):
         return
 
-    collection.insert_one({"digest": headers_digest, "headers": headers})
+    collection.insert_one(
+        {
+            "digest": headers_digest,
+            "headers": headers,
+            "created": datetime.utcnow(),
+        }
+    )
