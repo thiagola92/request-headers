@@ -4,7 +4,7 @@ import hashlib
 def clean_headers(headers):
     """
     I just want the basic fields that change from browser to browser.
-    Anything related to what you were doing or where you came from, 
+    Anything related to what you were doing or where you came from,
     doesn't matter to me.
     """
 

@@ -1,6 +1,8 @@
 import os
-from pymongo import MongoClient
 from datetime import datetime
+
+from pymongo import MongoClient
+
 from request_headers.headers import get_headers_digest
 
 uri = os.environ["MONGO_URI"]
