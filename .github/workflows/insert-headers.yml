@@ -16,6 +16,8 @@ jobs:
           enable-pep582: true
       - run: pdm install
       - run: pdm run run
+    env:
+      MONGO_URI: ${{ secrets.MONGO_URI }}
   
   chrome:
     runs-on: self-hosted
