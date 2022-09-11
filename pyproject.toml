@@ -1,0 +1,34 @@
+[project]
+name = "request-headers"
+version = "0.0.1"
+description = "API receive headers"
+authors = [
+    {name = "thiagola92", email = "thiagola92@gmail.com"},
+]
+dependencies = [
+    "pymongo[srv]>=4.2.0",
+    "quart>=0.18.0",
+]
+requires-python = ">=3.10"
+license = {text = "MIT"}
+
+[project.urls]
+Homepage = "https://github.com/thiagola92/request-headers"
+
+
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"
+
+[tool.pdm]
+
+[tool.pdm.scripts]
+run = "python run.py"
+tests = "python -m unittest discover -v -f -s tests"
+sort = "python -m isort -v --ac ."
+
+[tool.pdm.dev-dependencies]
+lint = [
+    "black",
+    "isort"
+]

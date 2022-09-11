@@ -1,0 +1,36 @@
+name: Insert new Headers to Mongo
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+
+jobs:
+  pdm:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pdm-project/setup-pdm@main
+        with:
+          python-version: "3.10"
+          enable-pep582: true
+      - run: pdm install
+  
+  api:
+    runs-on: self-hosted
+    steps:
+      - run: pdm run run
+    needs: pdm
+  
+  chrome:
+    runs-on: self-hosted
+    steps:
+      - run: curl --output /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      - run: sudo apt install -y /tmp/chrome.deb
+      - run: google-chrome http://0.0.0.0:5000
+    needs: api
+  
+  firefox:
+    runs-on: self-hosted
+    steps:
+      - run: firefox http://0.0.0.0:5000
+    needs: api
