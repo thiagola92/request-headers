@@ -6,7 +6,7 @@ on:
     - cron: "0 12 * * *"
 
 jobs:
-  pdm:
+  api:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
@@ -15,12 +15,7 @@ jobs:
           python-version: "3.10"
           enable-pep582: true
       - run: pdm install
-  
-  api:
-    runs-on: self-hosted
-    steps:
       - run: pdm run run
-    needs: pdm
   
   chrome:
     runs-on: self-hosted
