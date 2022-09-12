@@ -22,9 +22,15 @@ jobs:
   browsers:
     runs-on: self-hosted
     steps:
-      - run: firefox --headless http://0.0.0.0:5000
+      - run: firefox --headless http://0.0.0.0:5000 &
+      - run: sleep 1
+      - run: kill $!
 
       - run: curl --output /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
       - run: sudo apt install -y /tmp/chrome.deb
       - run: google-chrome --headless http://0.0.0.0:5000
+      - run: sleep 1
+      - run: kill $!
+
+      - run: curl http://0.0.0.0:5000/exit
     needs: api
