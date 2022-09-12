@@ -23,7 +23,6 @@ build-backend = "pdm.pep517.api"
 [tool.pdm]
 
 [tool.pdm.scripts]
-run = "python run.py"
 tests = "python -m unittest discover -v -f -s tests"
 sort = "python -m isort -v --ac ."
 
