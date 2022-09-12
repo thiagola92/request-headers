@@ -24,5 +24,6 @@ jobs:
     steps:
       - run: firefox --headless http://0.0.0.0:5000 &
       - run: google-chrome --headless http://0.0.0.0:5000
+      - run: sleep 1
       - run: curl http://0.0.0.0:5000/exit &
     needs: api
