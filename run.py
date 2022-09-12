@@ -20,9 +20,4 @@ async def main():
     return json.dumps(headers)
 
 
-@app.route("/exit")
-async def exit():
-    sys.exit(0)
-
-
 app.run(host="0.0.0.0", port=os.environ.get("PORT", 5000))
