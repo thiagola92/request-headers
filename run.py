@@ -1,6 +1,6 @@
 import json
 import os
-import sys
+from pathlib import Path
 
 from quart import Quart, request
 
@@ -20,4 +20,9 @@ async def main():
     return json.dumps(headers)
 
 
-app.run(host="0.0.0.0", port=os.environ.get("PORT", 5000))
+app.run(
+    host="0.0.0.0",
+    port=os.environ.get("PORT", 5000),
+    certfile="example.crt",
+    keyfile="example.key",
+)
