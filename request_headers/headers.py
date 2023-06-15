@@ -9,15 +9,15 @@ def clean_headers(headers):
     """
 
     # No use to know
-    headers.pop("Host", None)
+    # headers.pop("Host", None)
 
     # Intention context fields
-    headers.pop("Cache-Control", None)
-    headers.pop("Referer", None)
-    headers.pop("Sec-Fetch-Site", None)
-    headers.pop("Sec-Fetch-Mode", None)
-    headers.pop("Sec-Fetch-User", None)
-    headers.pop("Sec-Fetch-Dest", None)
+    # headers.pop("Cache-Control", None)
+    # headers.pop("Referer", None)
+    # headers.pop("Sec-Fetch-Site", None)
+    # headers.pop("Sec-Fetch-Mode", None)
+    # headers.pop("Sec-Fetch-User", None)
+    # headers.pop("Sec-Fetch-Dest", None)
 
     # Heroku/proxy fields
     headers.pop("Remote-Addr", None)
