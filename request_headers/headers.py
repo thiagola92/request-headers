@@ -1,39 +1,54 @@
 import hashlib
+import logging
+
+from json import dumps
+from pathlib import Path
+from datetime import datetime, timezone
+
+from starlette.requests import Request
 
 
-def clean_headers(headers):
+def clean_headers(headers) -> dict:
     """
-    I just want the basic fields that change from browser to browser.
-    Anything related to what you were doing or where you came from,
-    doesn't matter to me.
+    Remove non-standard fields.
+
+    Standard: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
     """
 
-    # No use to know
-    # headers.pop("Host", None)
+    # Quart fields
+    # headers.pop("Remote-Addr", None)
 
-    # Intention context fields
-    # headers.pop("Cache-Control", None)
-    # headers.pop("Referer", None)
-    # headers.pop("Sec-Fetch-Site", None)
-    # headers.pop("Sec-Fetch-Mode", None)
-    # headers.pop("Sec-Fetch-User", None)
-    # headers.pop("Sec-Fetch-Dest", None)
-
-    # Heroku/proxy fields
-    headers.pop("Remote-Addr", None)
-    headers.pop("X-Request-Id", None)
-    headers.pop("X-Forwarded-For", None)
-    headers.pop("X-Forwarded-Proto", None)
-    headers.pop("X-Forwarded-Port", None)
-    headers.pop("Via", None)
-    headers.pop("Connect-Time", None)
-    headers.pop("X-Request-Start", None)
-    headers.pop("Total-Route-Time", None)
+    return headers
 
 
-def get_headers_digest(headers):
+def get_headers_digest(headers) -> str:
     headers_bytes = bytes(str(headers), encoding="utf8")
     md5 = hashlib.md5()
     md5.update(headers_bytes)
 
     return md5.hexdigest()
+
+
+def save_headers(request: Request) -> dict:
+    headers = dict(request.headers)
+    endpoint = request.scope.get("path")
+    headers = clean_headers(headers)
+    headers_digest = get_headers_digest(headers)
+    path = Path(f"data/{headers_digest}.json")
+
+    if path.exists():
+        logging.info(f"Headers to '{endpoint}' ignored")
+        return headers
+
+    path.write_text(
+        dumps(
+            {
+                "headers": headers,
+                "endpoint": endpoint,
+                "created": str(datetime.now(tz=timezone.utc)),
+            },
+            indent=2,
+        )
+    )
+
+    return headers

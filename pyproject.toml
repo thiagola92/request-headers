@@ -6,8 +6,8 @@ authors = [
     {name = "thiagola92", email = "thiagola92@gmail.com"},
 ]
 dependencies = [
-    "pymongo[srv]>=4.2.0",
-    "quart>=0.18.0",
+    "starlette>=0.39.2",
+    "uvicorn>=0.31.1",
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}
