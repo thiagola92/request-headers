@@ -49,6 +49,11 @@ async def style_css(request: Request):
     return FileResponse("contents/style.css")
 
 
+async def file_json(request: Request):
+    save_headers(request)
+    return FileResponse("contents/file.json")
+
+
 routes = [
     Route("/", endpoint=homepage),
     Route("/website", endpoint=website),
@@ -58,6 +63,7 @@ routes = [
     Route("/image_link.png", endpoint=image_link),
     Route("/code.js", endpoint=code_js),
     Route("/style.css", endpoint=style_css),
+    Route("/file.json", endpoint=file_json),
 ]
 
 app = Starlette(debug=True, routes=routes)
